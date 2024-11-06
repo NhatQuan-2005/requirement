@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit Test Challenge</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 24px;
+      color: #333;
+      margin: 20px 0;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, auto);
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card h3 {
+      font-size: 18px;
+      color: #333;
+      margin: 0;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .button-container {
+      margin-top: 16px;
+    }
+
+    .button {
+      background-color: #007bff;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      margin: 0 5px;
+    }
+
+    .guide-button {
+      background-color: #e9e9e9;
+      color: #333;
+    }
+
+    .button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .popup-form {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .popup-content {
+      background-color: #fff;
+      padding: 20px;
+      width: 400px;
+      border-radius: 8px;
+      position: relative;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+    }
+
+    .form-button {
+      width: 100%;
+      background-color: #343a40;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    #editChallengeForm {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1001;
+    }
+
+    /* Popup content styling */
+    .edit-challenge-content {
+      position: relative;
+      background-color: #fff;
+      padding: 20px;
+      width: 600px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Close button styling */
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    /* Styles for form layout */
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+    }
+
+    .test-case-container {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    .input-type,
+    .output-type {
+      background-color: #f1f1f1;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: #333;
+    }
+
+    .test-case-input,
+    .test-case-output {
+      width: 80%;
+      padding: 8px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .form-button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+    }
+      
+  </style>
+</head>
+<body>
+
+  <h2>New Unit Test Custom Challenge</h2>
+  <div class="grid-container">
+    <div class="card">
+      <img src="https://simpleicons.org/icons/javascript.svg" alt="JavaScript Logo" width="40" height="40">
+      <h3>JavaScript (Mocha)</h3>
+      <p>Use the Mocha testing framework and create unit tests to grade solutions.</p>
+      <div class="button-container">
+        <button class="button" data-language="JavaScript (Mocha)">Continue</button>
+        <button class="button guide-button">Guide</button>
+      </div>
+    </div>
+    
+    <div class="card">
+      <img src="https://simpleicons.org/icons/typescript.svg" alt="TypeScript Logo" width="40" height="40">
+      <h3>TypeScript (Mocha)</h3>
+      <p>Use the Mocha testing framework and create unit tests to grade solutions.</p>
+      <div class="button-container">
+        <button class="button" data-language="TypeScript (Mocha)">Continue</button>
+        <button class="button guide-button">Guide</button>
+      </div>
+    </div>
+    
+    <div class="card">
+      <img src="https://simpleicons.org/icons/python.svg" alt="Python Logo" width="40" height="40">
+      <h3>Python (pytest)</h3>
+      <p>pytest is the most popular and fully-featured Python testing framework.</p>
+      <div class="button-container">
+        <button class="button" data-language="Python (pytest)">Continue</button>
+        <button class="button guide-button">Guide</button>
+      </div>
+    </div>
+
+    <!-- Additional cards for PHP, Java, Kotlin, etc. -->
+    <div class="card">
+        <img src="https://simpleicons.org/icons/php.svg" alt="PHP" width="40" height="40">
+        <h3>PHP (PHPUnit)</h3>
+        <p>PHPUnit is a programmer-oriented testing framework for PHP.</p>
+        <div class="button-container">
+          <button class="button" data-language="PHP (PHPUnit)">Continue</button>
+          <button class="button guide-button">Guide</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg" alt="Java" width="40" height="40">
+        <h3>Java (JUnit)</h3>
+        <p>JUnit is a popular unit-testing framework in the Java ecosystem.</p>
+        <div class="button-container">
+          <button class="button" data-language="Java (JUnit)">Continue</button>
+          <button class="button guide-button">Guide</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://simpleicons.org/icons/kotlin.svg" alt="Kotlin" width="40" height="40">
+        <h3>Kotlin (JUnit)</h3>
+        <p>JUnit is a popular unit-testing framework in the Kotlin ecosystem.</p>
+        <div class="button-container">
+          <button class="button" data-language="Kotlin (JUnit)">Continue</button>
+          <button class="button guide-button">Guide</button>
+        </div>
+    </div>
+  </div>
+  
+  <div id="popupForm" class="popup-form">
+    <div class="popup-content">
+      <span class="close-button" onclick="closeForm()">&times;</span>
+      <h2>New unit test custom challenge</h2>
+      <input type="text" placeholder="Demo" class="form-input">
+      <div class="form-group">
+        <label for="difficulty">Difficulty:</label>
+        <select id="difficulty" class="form-select">
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      <input type="text" placeholder="Optional short description about this challenge..." class="form-input">
+      <button class="form-button">Click here to open the Java (JUnit) IDE and edit your code →</button>
+    </div>
+  </div>
+
+  <div id="editChallengeForm" class="popup-form">
+    <div class="edit-challenge-content">
+      <!-- Close button in the top-right corner -->
+      <span class="close-button" onclick="closeEditForm()">&times;</span>
+      
+      <h2>Edit custom challenge</h2>
+
+      <!-- Basic info section -->
+      <input type="text" placeholder="Challenge Title" class="form-input">
+      <div class="form-group">
+        <label for="difficulty">Difficulty:</label>
+        <select id="difficulty" class="form-select">
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+      <input type="text" placeholder="Short description" class="form-input">
+      <textarea class="form-input" placeholder="Challenge description..."></textarea>
+
+      <!-- Input and Output types -->
+      <div class="form-group">
+        <div class="input-type">Input type: Array of integers</div>
+        <div class="output-type">Output type: Integer</div>
+      </div>
+
+      <!-- Test cases section -->
+      <div class="form-group">
+        <label>Required test cases</label>
+        <div class="test-case-container">
+          <input type="text" class="test-case-input" placeholder="Test case input (e.g., 12, 31, 25, 17)">
+          <input type="text" class="test-case-output" placeholder="Expected output">
+        </div>
+        <div class="test-case-container">
+          <input type="text" class="test-case-input" placeholder="Test case input">
+          <input type="text" class="test-case-output" placeholder="Expected output">
+        </div>
+        <!-- Add more test cases as needed -->
+      </div>
+
+      <button class="form-button">Update custom challenge</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const continueButtons = document.querySelectorAll(".button:not(.guide-button)");
+
+        continueButtons.forEach(button => {
+          button.addEventListener("click", function() {
+            const language = button.getAttribute("data-language");
+            openForm(language);
+          });
+        });
+    });
+
+    function openForm(language) {
+        document.getElementById("popupForm").style.display = "flex";
+        const formButton = document.querySelector(".form-button");
+        formButton.textContent = `Click here to open the ${language} IDE and edit your code →`;
+        
+        formButton.onclick = function() {
+          closeForm();
+          openEditChallengeForm();
+        };
+    }
+
+    function closeForm() {
+        document.getElementById("popupForm").style.display = "none";
+    }
+
+    function openEditChallengeForm() {
+        document.getElementById("editChallengeForm").style.display = "flex";
+    }
+
+    function closeEditForm() {
+        document.getElementById("editChallengeForm").style.display = "none";
+    }
+
+  </script>
+  
+
+</body>
+</html>
